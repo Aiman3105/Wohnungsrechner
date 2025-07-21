@@ -106,7 +106,7 @@ if Kaufpreis > 0 and Zinssatz > 0 and Kreditlaufzeit > 0:
     Abgezahlt_gesamt = round(Vermögensaufbau, 2)
     Steuerersparnis_gesamt = round(Steuerersparnis, 2)
 
-    col41, col42, col43; col44 = st.columns(4)
+    col41, col42, col43, col44 = st.columns(4)
 
     with col41:
         st.metric("💰 Cashflow / Monat", f"{Cashflow_mtl} €")
