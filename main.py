@@ -22,7 +22,7 @@ st.subheader("Kredit")
 col1, col2, col3 = st.columns(3)
 with col1:
     Kaufpreis = st.number_input("Kaufpreis: ", step=1)
-    Eigenkapital = st.number_input("Eigenkapital: ", step=1)
+    Eigenkapital = st.number_input("Eigenkapital: ", step=500)
 
 with col2:
     Kreditlaufzeit = st.number_input("Kreditlaufzeit: ", step=1, value=30)
@@ -106,13 +106,16 @@ if Kaufpreis > 0 and Zinssatz > 0 and Kreditlaufzeit > 0:
     Abgezahlt_gesamt = round(Vermögensaufbau, 2)
     Steuerersparnis_gesamt = round(Steuerersparnis, 2)
 
-    col41, col42, col43 = st.columns(3)
+    col41, col42, col43; col44 = st.columns(4)
 
     with col41:
         st.metric("💰 Cashflow / Monat", f"{Cashflow_mtl} €")
 
     with col42:
-        st.metric("📈 Vermögenszuwachs", f"{Abgezahlt_gesamt} €")
+        st.metric("💰 Monatliche Rate", f"{mtl_Rate} €")
 
     with col43:
+        st.metric("📈 Vermögenszuwachs", f"{Abgezahlt_gesamt} €")
+
+    with col44:
         st.metric("💸 Steuervorteil", f"{Steuerersparnis_gesamt} €")
