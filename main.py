@@ -22,7 +22,7 @@ st.subheader("Kredit")
 col1, col2, col3 = st.columns(3)
 with col1:
     Kaufpreis = st.number_input("Kaufpreis: ", step=1)
-    Eigenkapital = st.number_input("Eigenkapital: ", step=500)
+    Eigenkapital = st.number_input("Eigenkapital: ", value=500, step=500)
 
 with col2:
     Kreditlaufzeit = st.number_input("Kreditlaufzeit: ", step=1, value=30)
@@ -85,7 +85,7 @@ if Kaufpreis > 0 and Zinssatz > 0 and Kreditlaufzeit > 0:
     Abschreibungsfaktor = st.session_state.Abschreibungsfaktor
 
     Kreditrahmen = Kaufpreis + (Kaufnebenkostensfaktor / 100 * Kaufpreis) + (Provision * Kaufpreis / 100) - Eigenkapital
-    mtl_Rate = Annuität(Kaufpreis, Eigenkapital, Provision, Kreditrahmen, Zinssatz, Kreditlaufzeit)
+    mtl_Rate = int(round(Annuität(Kaufpreis, Eigenkapital, Provision, Kreditrahmen, Zinssatz, Kreditlaufzeit),0))
     Annuitaet_gesamt = mtl_Rate * 12
     Einnahmen_gesamt = Einnahmen(Größe, Mietpreis_pro_Quadratmeter, Hausgeld)
 
@@ -102,11 +102,12 @@ if Kaufpreis > 0 and Zinssatz > 0 and Kreditlaufzeit > 0:
         Jahre
     )
 
-    Cashflow_mtl = round(Einnahmen_gesamt - mtl_Rate, 2)
-    Abgezahlt_gesamt = round(Vermögensaufbau, 2)
-    Steuerersparnis_gesamt = round(Steuerersparnis, 2)
+    Cashflow_mtl = int(round(Einnahmen_gesamt - mtl_Rate, 0))
+    Abgezahlt_gesamt = int(round(Vermögensaufbau, 0))
+    Steuerersparnis_gesamt = int(round(Steuerersparnis, 0))
+    ROE=round((Abgezahlt_gesamt+Steuerersparnis_gesamt+Cashflow_mtl*12*Jahre)/Eigenkapital*100,1)
 
-    col41, col42, col43, col44 = st.columns(4)
+    col41, col42, col43, col44, col45 = st.columns(5)
 
     with col41:
         st.metric("💰 Cashflow / Monat", f"{Cashflow_mtl} €")
@@ -119,3 +120,8 @@ if Kaufpreis > 0 and Zinssatz > 0 and Kreditlaufzeit > 0:
 
     with col44:
         st.metric("💸 Steuervorteil", f"{Steuerersparnis_gesamt} €")
+
+    with col45:
+        st.metric("💼 Eigenkapitalrendite", f"{ROE} %")
+
+
