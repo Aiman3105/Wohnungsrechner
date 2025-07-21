@@ -112,7 +112,7 @@ if Kaufpreis > 0 and Zinssatz > 0 and Kreditlaufzeit > 0:
         st.metric("💰 Cashflow / Monat", f"{Cashflow_mtl} €")
 
     with col42:
-        st.metric("💰 Monatliche Rate", f"{mtl_Rate} €")
+        st.metric("🏦 Monatliche Rate", f"{mtl_Rate} €")
 
     with col43:
         st.metric("📈 Vermögenszuwachs", f"{Abgezahlt_gesamt} €")
